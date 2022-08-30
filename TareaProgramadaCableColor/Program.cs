@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Linq;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using TareaProgramadaCableColor.Conexion;
@@ -103,10 +105,18 @@ namespace TareaProgramadaCableColor
             correo.Body = contenido;
             correo.Priority = System.Net.Mail.MailPriority.High;
 
+            var file = "ConciliacionCableColor"+DateTime.Now.ToString("ddMMyyyy")+".txt";
+
+            var Data = new Attachment(file, MediaTypeNames.Application.Octet);
+            var disposition = new ContentDisposition();
+            disposition = Data.ContentDisposition;
+            disposition.CreationDate = System.IO.File.GetCreationTime(file);
+            disposition.ModificationDate = System.IO.File.GetLastWriteTime(file);
+            disposition.ReadDate = System.IO.File.GetLastAccessTime(file);
+            correo.Attachments.Add(Data);
+
             var Servidor = new System.Net.Mail.SmtpClient();
             Servidor.Host = "correo.banhcafe.hn";
-
-
             Servidor.Credentials = new System.Net.NetworkCredential("no-reply@banhcafe.bhc", "BHCgen2017");
             try
             {
