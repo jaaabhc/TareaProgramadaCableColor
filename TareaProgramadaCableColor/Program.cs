@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
@@ -26,6 +27,10 @@ namespace TareaProgramadaCableColor
                 {
                     var monto = pagosrealizados * 10;
                     var contabilizar = hacerContabilidad("2614000414", "5299927000000000", "2110101030500000", "COBRO COMISION CABLE COLOR", "COBRO COMISION CABLE COLOR", monto.ToString(), "2", "0", "APLICATIVO", 0, 0, "LPS", "01");
+                    if (contabilizar)
+                    {
+                        Enviar_Correo();
+                    }
                 }
             }
             catch (Exception)
@@ -33,9 +38,6 @@ namespace TareaProgramadaCableColor
 
                 throw;
             }
-
-
-
 
         }
 
@@ -92,10 +94,12 @@ namespace TareaProgramadaCableColor
             return listaDOCTIP;
         }
 
-        public static void Enviar_Correo(string contenido, string destinatario, string asunto)
+        public static void Enviar_Correo()
         {
             System.Net.Mail.MailMessage correo = new System.Net.Mail.MailMessage();
-
+            string destinatario = "pagos@cablecolor.net,Tesoreria@cablecolor.net";
+            string asunto = "Conciliación BANHCAFE";
+            string contenido = "Hola, Buenos días. \n Se adjunta la concialición de pagos Cable Color al día "+DateTime.Now.ToString("dd/MM/yyyy")+".";
 
             //Destino de correo y su contenido
             correo.From = new System.Net.Mail.MailAddress("no-reply@banhcafe.bhc");
@@ -103,10 +107,12 @@ namespace TareaProgramadaCableColor
             correo.To.Add(destinatario);
             correo.IsBodyHtml = true;
             correo.Body = contenido;
+            correo.CC.Add("jaguilar@banhcafe.hn, emelgares@banhcafe.hn, cbarahona@banhcafe.hn");
             correo.Priority = System.Net.Mail.MailPriority.High;
 
-            var file = "ConciliacionCableColor"+DateTime.Now.ToString("ddMMyyyy")+".txt";
-
+            var adjunto = Program.Creartxt();
+            var file = adjunto;
+            
             var Data = new Attachment(file, MediaTypeNames.Application.Octet);
             var disposition = new ContentDisposition();
             disposition = Data.ContentDisposition;
@@ -127,8 +133,26 @@ namespace TareaProgramadaCableColor
             {
                 Console.WriteLine(ex.Message.ToString());
             }
+        }
 
+        public static string Creartxt()
+        {
+            IntegradorEntities integrador = new IntegradorEntities();
+            string texto = string.Empty;
+            string dir = Path.GetTempPath();
+            string nombreArchivo = "ConciliacionCableColor" + DateTime.Now.ToString("ddMMyyyy") + ".txt";
+            string fecha = DateTime.Now.ToString("yyyyMMdd");
 
+            var consulta = integrador.cableColor.Where(x => x.fecha == fecha && x.identificador_unico_pago != null && x.identificador_unico_reversion == null).ToList();
+
+            foreach(var item in consulta)
+            {
+                texto += item.codCliente + ":" + item.numReferencia + ":" + item.saldo + ":" + item.cajero.Trim() + ":" + item.codAgencia+"\n";
+            }
+
+            File.WriteAllText(dir+"/"+nombreArchivo,texto);
+
+            return dir + "/" + nombreArchivo;
 
         }
 
@@ -141,6 +165,7 @@ namespace TareaProgramadaCableColor
             var insert = 0;
             string descd = descripcionDebito;
             string descc = descripcionCredito;
+            
             try
             {
                 var i = DateTime.Now;
