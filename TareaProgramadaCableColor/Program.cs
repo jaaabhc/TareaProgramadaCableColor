@@ -30,9 +30,9 @@ namespace TareaProgramadaCableColor
                     if (contabilizar)
                     {
                         Enviar_Correo();
-            }
                     }
-    }
+                }
+            }
             catch (Exception)
             {
 
@@ -97,17 +97,17 @@ namespace TareaProgramadaCableColor
         public static void Enviar_Correo()
         {
             System.Net.Mail.MailMessage correo = new System.Net.Mail.MailMessage();
-            string destinatario = "Tesoreria @cablecolor.net,Pagos@cablecolor.net";
+            string destinatario = "pagos@cablecolor.net,Tesoreria@cablecolor.net";
             string asunto = "Conciliación BANHCAFE";
-            string contenido = "Hola, Buenos días. \n Se adjunta la concialición de pagos Cable Color al día "+DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy")+".";
+            string contenido = "Hola, Buenos días. \n Se adjunta la concialición de pagos Cable Color al día "+DateTime.Now.ToString("dd/MM/yyyy")+".";
 
             //Destino de correo y su contenido
-            correo.From = new System.Net.Mail.MailAddress("banhcafeonline@banhcafe.hn");
+            correo.From = new System.Net.Mail.MailAddress("no-reply@banhcafe.bhc");
             correo.Subject = asunto;
             correo.To.Add(destinatario);
             correo.IsBodyHtml = true;
             correo.Body = contenido;
-            correo.CC.Add("jaguilar@banhcafe.hn, emelgares@banhcafe.hn, cbarahona@banhcafe.hn, lcanales@banhcafe.hn");
+            correo.CC.Add("jaguilar@banhcafe.hn, emelgares@banhcafe.hn, cbarahona@banhcafe.hn");
             correo.Priority = System.Net.Mail.MailPriority.High;
 
             var adjunto = Program.Creartxt();
@@ -123,10 +123,7 @@ namespace TareaProgramadaCableColor
 
             var Servidor = new System.Net.Mail.SmtpClient();
             Servidor.Host = "correo.banhcafe.hn";
-            Servidor.Credentials = new System.Net.NetworkCredential("banhcafeonline", "BHCgen2017");
-            Servidor.EnableSsl = true;
-            Servidor.Port = 587;
-
+            Servidor.Credentials = new System.Net.NetworkCredential("no-reply@banhcafe.bhc", "BHCgen2017");
             try
             {
                 Console.WriteLine("Enviando correo");
@@ -143,8 +140,8 @@ namespace TareaProgramadaCableColor
             IntegradorEntities integrador = new IntegradorEntities();
             string texto = string.Empty;
             string dir = Path.GetTempPath();
-            string nombreArchivo = "ConciliacionCableColor" + DateTime.Now.AddDays(-1).ToString("ddMMyyyy") + ".txt";
-            string fecha = DateTime.Now.AddDays(-1).ToString("yyyyMMdd");
+            string nombreArchivo = "ConciliacionCableColor" + DateTime.Now.ToString("ddMMyyyy") + ".txt";
+            string fecha = DateTime.Now.ToString("yyyyMMdd");
 
             var consulta = integrador.cableColor.Where(x => x.fecha == fecha && x.identificador_unico_pago != null && x.identificador_unico_reversion == null).ToList();
 
@@ -185,7 +182,11 @@ namespace TareaProgramadaCableColor
 
                 var sqlED = "INSERT INTO BHCCYFILES.TRANS (TRABTH, TRAVDM, TRAVDD, TRAVDY, TRABNK, TRABRN, TRACCY, TRAGLN, TRAACC, TRABDM, TRABDD, TRABDY, TRACDE, TRANAR, TRAAMT, TRADCC, TRAUSA, TRAUSO, TRAEXR, TRADRR, TRAPTS, TRAAPC, TRAREF, TRANID, TRATRN, TRAPMN, TRASEQ, TRACKN, TRACCN, TRACUN, TRAMOD, TRAOBK, TRAOBR, TRAAAF, TRAEQV, TRAACR, TRACNU, TRARCL, TRACNL, TRADED, TRADSQ, TRAIVP, TRAIVB, TRAREV, TRAOLF, TRACOD, TRATMS)" +
                                     " VALUES(8002, " + mes + ", " + dia + ", " + año + ", '" + banco + "', " + agencia + ", '" + moneda + "', " + cuentaDetalle + ", " + cuentaDebito + ", " + mes + ", " + dia + ", " + año + ", 'MD', '" + descripcionDebito + "', " + monto + ", '0', '" + usuario + "', '" + usuario + "', 1.000000, 0, 0, '  ', '                         ', 0, 0, 0, 2, 0, 0, 336409, '1',  '" + banco + "', 1, ' ', 0.00, 0, 0, '                    ', '$1', '    ', 0, 0.000, 0.00, ' ', ' ', '    ', CURRENT_TIMESTAMP)";
-                insert = con.ejecutar(sqlED);
+                con.ejecutar(sqlED);
+
+
+
+
             }
 
             catch (Exception ex)
