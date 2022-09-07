@@ -10,7 +10,7 @@ namespace TareaProgramadaCableColor.Conexion
     public class AS400
     {
 
-        String conexion = "Provider=IBMDA400.1;Data Source=172.19.20.50;User id=BHCWEB;Password=BHCWEB";
+        String conexion = "Provider=IBMDA400.1;Data Source=172.19.20.60;User id=APLICATIVO;Password=fechabanap";
         OleDbConnection dbConnection;
 
         public void abrirConexion()

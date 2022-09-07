@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="IntegradorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cableColor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codCliente" Type="varchar" MaxLength="12" />
+          <Property Name="tipoSaldo" Type="varchar" MaxLength="2" />
+          <Property Name="codigoResultado" Type="varchar" MaxLength="2" />
+          <Property Name="mensajeResultado" Type="varchar" MaxLength="25" />
+          <Property Name="nombreCliente" Type="varchar" MaxLength="200" />
+          <Property Name="telefonos" Type="varchar" MaxLength="70" />
+          <Property Name="saldo" Type="varchar" MaxLength="12" />
+          <Property Name="cajero" Type="varchar" MaxLength="10" />
+          <Property Name="fecha" Type="varchar" MaxLength="8" />
+          <Property Name="hora" Type="varchar" MaxLength="6" />
+          <Property Name="codAgencia" Type="varchar" MaxLength="10" />
+          <Property Name="refBanco" Type="varchar" MaxLength="50" />
+          <Property Name="identificadorBanco" Type="varchar" MaxLength="50" />
+          <Property Name="numReferencia" Type="varchar" MaxLength="10" />
+          <Property Name="facts" Type="varchar" MaxLength="200" />
+          <Property Name="dets" Type="varchar" MaxLength="200" />
+          <Property Name="identificador_unico_consulta" Type="varchar" MaxLength="50" />
+          <Property Name="identificador_unico_pago" Type="varchar" MaxLength="50" />
+          <Property Name="identificador_unico_reversion" Type="varchar" MaxLength="50" />
+          <Property Name="mensajeConsulta" Type="varchar" MaxLength="200" />
+          <Property Name="mensajePago" Type="varchar" MaxLength="200" />
+          <Property Name="mensajeReversion" Type="varchar" MaxLength="200" />
+          <Property Name="fechaTransaccion" Type="date" />
+        </EntityType>
+        <EntityContainer Name="IntegradorModelStoreContainer">
+          <EntitySet Name="cableColor" EntityType="Self.cableColor" Schema="cableColor" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IntegradorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cableColor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codCliente" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="tipoSaldo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="codigoResultado" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="mensajeResultado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="nombreCliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="telefonos" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="saldo" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="cajero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="hora" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="codAgencia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="refBanco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="identificadorBanco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numReferencia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="facts" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="dets" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="identificador_unico_consulta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="identificador_unico_pago" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="identificador_unico_reversion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mensajeConsulta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="mensajePago" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="mensajeReversion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="fechaTransaccion" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityContainer Name="IntegradorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cableColor" EntityType="Self.cableColor" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IntegradorModelStoreContainer" CdmEntityContainer="IntegradorEntities">
+          <EntitySetMapping Name="cableColor">
+            <EntityTypeMapping TypeName="IntegradorModel.cableColor">
+              <MappingFragment StoreEntitySet="cableColor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codCliente" ColumnName="codCliente" />
+                <ScalarProperty Name="tipoSaldo" ColumnName="tipoSaldo" />
+                <ScalarProperty Name="codigoResultado" ColumnName="codigoResultado" />
+                <ScalarProperty Name="mensajeResultado" ColumnName="mensajeResultado" />
+                <ScalarProperty Name="nombreCliente" ColumnName="nombreCliente" />
+                <ScalarProperty Name="telefonos" ColumnName="telefonos" />
+                <ScalarProperty Name="saldo" ColumnName="saldo" />
+                <ScalarProperty Name="cajero" ColumnName="cajero" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="codAgencia" ColumnName="codAgencia" />
+                <ScalarProperty Name="refBanco" ColumnName="refBanco" />
+                <ScalarProperty Name="identificadorBanco" ColumnName="identificadorBanco" />
+                <ScalarProperty Name="numReferencia" ColumnName="numReferencia" />
+                <ScalarProperty Name="facts" ColumnName="facts" />
+                <ScalarProperty Name="dets" ColumnName="dets" />
+                <ScalarProperty Name="identificador_unico_consulta" ColumnName="identificador_unico_consulta" />
+                <ScalarProperty Name="identificador_unico_pago" ColumnName="identificador_unico_pago" />
+                <ScalarProperty Name="identificador_unico_reversion" ColumnName="identificador_unico_reversion" />
+                <ScalarProperty Name="mensajeConsulta" ColumnName="mensajeConsulta" />
+                <ScalarProperty Name="mensajePago" ColumnName="mensajePago" />
+                <ScalarProperty Name="mensajeReversion" ColumnName="mensajeReversion" />
+                <ScalarProperty Name="fechaTransaccion" ColumnName="fechaTransaccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
